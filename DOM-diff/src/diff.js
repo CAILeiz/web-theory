@@ -22,21 +22,46 @@ function diffAttr(oldAttrs, newAttrs) {
     }
     return patch;
 }
-const ATTRS = "ATTRS"
-function diffChildren(oldChildren, newChildren) {
+
+
+const ATTRS = "ATTRS" 
+const TEXT = "TEXT" 
+const REMOVE = "REMOVE" 
+let Index = 0
+function diffChildren(oldChildren, newChildren, index, patches) {
+    // 比较老的第一个和新的第一个
+    oldChildren.forEach((child, idx) => {
+        // 
+        walk(child, newChildren[idx], ++Index, patches);
+    });
 }
+// 判断是不是
+function isString(node) {
+    return Object.prototype.toString.call(node) === '[object String]';
+} 
 // 比较单个节点属性的不同
 function walk(oldNode, newNode, index, pathches) {
     let currentPatch = [];
-    // 当节点类型相同时,看一下属性是否相同, 产生一个属性的补丁包
-    if(oldNode.type === newNode.type) {
+    // 如果新节点被删除了
+    if(!newNode) {
+        currentPatch.push({
+            type: REMOVE, index
+        })
+    } else if(isString(oldNode) && isString(newNode)) {
+    // 判断老节点和新节点是不是文本类型且是否一致
+        if(oldNode !== newNode) {
+            currentPatch.push({
+                type: TEXT, text: newNode
+            })
+        }
+    } else if(oldNode.type === newNode.type) {
+        // 当节点类型相同时,看一下属性是否相同, 产生一个属性的补丁包
         // 比较属性是否修改
         let attrs = diffAttr(oldNode.props, newNode.props);
-        console.log(Object.keys(attrs).length);
         if(Object.keys(attrs).length) {
             currentPatch.push({type: ATTRS, attrs})
         }
-        diffChildren(oldNode.children, newNode.children);
+        diffChildren(oldNode.children, newNode.children, index, pathches);
     }
     // 当前元素确实有补丁 将元素和补丁对应起来 放到补丁包中
     if(currentPatch.length) {

@@ -54,7 +54,7 @@ class Compile {
     compileText(node) {
         // 带{{}}
         let expr = node.textContent; // 取文本中的内容
-        console.log(node);
+        // console.log(node);
         let reg = /\{\{([^}]+)\}\}/g;
         if(reg.test(expr)) {
             // 如果带{{}} 给对应节点编译 
@@ -88,6 +88,15 @@ CompileUtils = {
             return prev[next];
         }, vm.$data)
     },
+    setVal(vm, expr, newVal) {
+        expr = expr.split(".");
+        expr.reduce((prev, next, currentIndex) => {
+             if(currentIndex === expr.length - 1) {
+                return prev[next] = newVal
+             }
+             return prev[next]
+        }, vm.$data)
+    },
     // 获取{{}}里面的内容
     getTextVal(vm, expr) {
         return expr.replace(/\{\{([^}]+)\}\}/g, (...arguments) => {
@@ -100,12 +109,28 @@ CompileUtils = {
     text(node, vm, expr) {
         let updateFn = this.updater["textUpdater"];
         let value = this.getTextVal(vm, expr);
+        // 如果文本是{{a}} {{b}} 需要给a和b都加一个watcher
+        expr.replace(/\{\{([^}]+)\}\}/g, (...arguments) => {
+            new Watcher(vm, arguments[1], (newValue) => {
+                // 如果数据变化了 文本节点需要重新获取依赖的属性更新文本中的内容
+                updateFn && updateFn(node, this.getTextVal(vm, expr));
+            })
+        })
         updateFn && updateFn(node, value);
     },
     // v-model处理
     model(node, vm, expr) {
         let updateFn = this.updater["modelUpdater"];
         let value = this.getVal(vm, expr);
+        // 这里应该加一个监控 数据变化了 应该调用这个watch的callback再次更新数据
+        new Watcher(vm, expr, (newValue) => {
+            updateFn && updateFn(node,  this.getVal(vm, expr));
+        })
+        // 给输入框添加一个监听事件 当值改变的时候改变数据即可
+        node.addEventListener('input', (e) => {
+            let newValue = e.target.value;    
+            this.setVal(vm, expr, newValue);      
+        })
         updateFn && updateFn(node, value);
     },
     updater: {

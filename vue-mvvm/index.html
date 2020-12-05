@@ -7,13 +7,15 @@
 </head>
 <body>
     <div id="app">
-        <input type="text" v-model="message.a.b">
+        <input type="text" v-model="message.a">
         <ul>
             <li>{{message.a}}</li>
-            <li>{{message.a.b}}</li>
+            <li>{{message.a}}</li>
         </ul>
         <div>{{message.a}}</div>
     </div>
+    <script src="./Wather.js"></script>
+    <script src="./Observer.js"></script>
     <script src="./compile.js"></script>
     <script src="./MVVM.js"></script>
     <script>
@@ -21,10 +23,9 @@
             el: "#app",
             data: {
                 message: {
-                    a: {
-                        b: 1
-                    }
-                }
+                    a: 1
+                },
+                a: 1
             }
         })
     </script>

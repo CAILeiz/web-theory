@@ -6,6 +6,7 @@ class MVVM {
         if(this.$el) {
             // 数据劫持 就是把对象的属性 改成get和set方法
             new Observer(this.$data);
+            // 将vm.$data.message ==> vm.message
             this.proxyData(this.$data);
             // 将数据和元素进行编译
             new Compile(this.$el, this)
@@ -18,7 +19,7 @@ class MVVM {
                     return data[key];
                 },
                 set(newVal) {
-                    this[key] = newVal;
+                    data[key] = newVal;
                 }
             }) 
         })

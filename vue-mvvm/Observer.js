@@ -35,7 +35,6 @@ class Observer {
                     dep.nodify();
                 }
             }
-            
         })
     }
 }

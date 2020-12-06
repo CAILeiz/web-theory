@@ -1,5 +1,6 @@
 import { createElement, render, Element, renderDom } from "./element"
 import diff from "./diff"
+import patch from "./patch"
 let virtualDom1 = createElement("ui", {class: "list", style: {
     width:"200px",height:"200px"
 }, value: 123}, [
@@ -10,7 +11,12 @@ let virtualDom1 = createElement("ui", {class: "list", style: {
 let virtualDom2 = createElement("ui", {class: "list"}, [
     createElement("li", {class: "item"}, ["3"]),
     createElement("li", {class: "item"}, ["1"]),
+    createElement("div", {class: "item"}, ["2"]),
 ])
-let patch = diff(virtualDom1, virtualDom2);
-let el1 = render(virtualDom1);
-renderDom(el1, window.root)
+let el = render(virtualDom1);
+renderDom(el, window.root)
+
+let patches = diff(virtualDom1, virtualDom2);
+console.log(patches);
+// 给元素打补丁 重新更新视图
+patch(el, patches);

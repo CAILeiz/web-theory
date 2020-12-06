@@ -3,38 +3,13 @@ function diff(oldTree, newTree) {
     let index = 0;
     // 递归树
     walk(oldTree, newTree, index, pathches);
-
     return pathches;
 }
-function diffAttr(oldAttrs, newAttrs) {
-    let patch = {};
-    // 比较原来attrs 如果不相等 放入补丁包patch
-    for (let key in oldAttrs) {
-        if (newAttrs[key] !== oldAttrs[key]) {
-            newAttrs[key] && (patch[key] = newAttrs[key]);
-        }
-    }
-    // 如果是newAttrs里面新增的属性 同样放入patch补丁包
-    for (const key in newAttrs) {
-        if (!oldAttrs.hasOwnProperty(key)) {
-            patch[key] = newAttrs[key];
-        }
-    }
-    return patch;
-}
-
-
 const ATTRS = "ATTRS" 
-const TEXT = "TEXT" 
+const TEXT = "TEXT"  
 const REMOVE = "REMOVE" 
+const REPLACE = "REPLACE" 
 let Index = 0
-function diffChildren(oldChildren, newChildren, index, patches) {
-    // 比较老的第一个和新的第一个
-    oldChildren.forEach((child, idx) => {
-        // 
-        walk(child, newChildren[idx], ++Index, patches);
-    });
-}
 // 判断是不是
 function isString(node) {
     return Object.prototype.toString.call(node) === '[object String]';
@@ -61,14 +36,43 @@ function walk(oldNode, newNode, index, pathches) {
         if(Object.keys(attrs).length) {
             currentPatch.push({type: ATTRS, attrs})
         }
-        diffChildren(oldNode.children, newNode.children, index, pathches);
+        diffChildren(oldNode.children, newNode.children, pathches);
+    } else {
+        // 说明节点被替换了
+        currentPatch.push({
+            type: REPLACE, newNode
+        })
     }
     // 当前元素确实有补丁 将元素和补丁对应起来 放到补丁包中
     if(currentPatch.length) {
         pathches[index] = currentPatch;
     }
-    console.log(pathches);
 }
+function diffChildren(oldChildren, newChildren, patches) {
+    // 比较老的第一个和新的第一个
+    oldChildren.forEach((child, idx) => {
+        // 
+        walk(child, newChildren[idx], ++Index, patches);
+    });
+}
+// 比较节点中行内属性的不同 并生成补丁对象 eg: {class: 'list-group'}
+function diffAttr(oldAttrs, newAttrs) {
+    let patch = {};
+    // 比较原来attrs 如果不相等 放入补丁包patch
+    for (let key in oldAttrs) {
+        if (newAttrs[key] !== oldAttrs[key]) {
+            newAttrs[key] && (patch[key] = newAttrs[key]);
+        }
+    }
+    // 如果是newAttrs里面新增的属性 同样放入patch补丁包
+    for (const key in newAttrs) {
+        if (!oldAttrs.hasOwnProperty(key)) {
+            patch[key] = newAttrs[key];
+        }
+    }
+    return patch;
+}
+
 export default diff
 
 // 当节点类型相同时,看一下属性是否相同, 产生一个属性的补丁包, { type: "ATTRS", attrs: { class: "list-group" }} 

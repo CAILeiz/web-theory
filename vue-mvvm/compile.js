@@ -47,13 +47,13 @@ class Compile {
                 // todo....
                 let [, type] = attrName.split("-");
                 CompileUtils[type](node, this.vm, expr)
-
-            }
+            } 
         })
+        this.compileText(node);
     }
     compileText(node) {
         // 带{{}}
-        let expr = node.textContent; // 取文本中的内容
+        let expr = node.innerText; // 取文本中的内容
         // console.log(node);
         let reg = /\{\{([^}]+)\}\}/g;
         if(reg.test(expr)) {
@@ -123,7 +123,7 @@ CompileUtils = {
         let updateFn = this.updater["modelUpdater"];
         let value = this.getVal(vm, expr);
         // 这里应该加一个监控 数据变化了 应该调用这个watch的callback再次更新数据
-        new Watcher(vm, expr, (newValue) => {
+        new Watcher(vm, expr, () => {
             updateFn && updateFn(node,  this.getVal(vm, expr));
         })
         // 给输入框添加一个监听事件 当值改变的时候改变数据即可
@@ -136,7 +136,7 @@ CompileUtils = {
     updater: {
         // 文本更新
         textUpdater(node, value) {
-            node.textContent = value;
+            node.innerText = value;
         },
         // 输入框更新
         modelUpdater(node, value) {

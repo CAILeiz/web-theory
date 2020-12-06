@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 百度跨域
+        // function jQuery1102025253739861439106_1607241151433(data) {
+        //     console.log(data);
+        // }
+    </script>
+     <!-- <script src="https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&wd=1233&req=2&csor=4&pwd=123&cb=jQuery1102025253739861439106_1607241151433"></script> -->
+
+    <script>
+        // 封装jsonp 跨域 
+        // 缺点 只能发送get请求 不支持post put delete
+        // 不安全 xss攻击 别人返回一个脚本给你 你就完了 之后就不采用
+        // url有长度限制
+        function jsonp({url, params, data,  cb}) {
+            console.log(url, params, data,  cb);
+            return new Promise((resolve, reject) => {
+                let script = document.createElement("script");
+                window[cb] = function (data) {
+                    resolve(data)
+                    document.body.removeChild(script);
+                }
+                params = {...params, ...data, cb};
+                let arr = [];
+                for(let key in params) {
+                    arr.push(`${key}=${params[key]}`)
+                }
+                script.src = `${url}?${arr.join('&')}`;
+                document.body.appendChild(script);
+            })
+        }
+        jsonp({
+            url: "http://localhost:3000/say",
+            params: {
+                pre: 1,
+                p: 3,
+                ie: "utf-8",
+                json: 1,
+                prod: "pc",
+                from: "pc_web",
+                req: 2,
+                csor: 4,
+                pwd: 123
+            },
+            data: {
+                wd: "a",
+            },
+            cb: "show"
+        }).then(res => {
+            console.log(res)
+        })
+    </script>
+</body>
+</html>

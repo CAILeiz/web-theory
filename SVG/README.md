@@ -52,7 +52,7 @@ ry：沿 y 轴向的半径，也就是它会把图形分割成左右两部分
   <ellipse style="fill:black;" cx="46" cy="65" rx="5" ry="5"></ellipse>
 </svg>
 
-5. 创建一个播放的图标
+5. 创建一个播放的图标 
 <polygon> 元素和 <polyline> 元素几乎一样。他们都只有一个 points 属性，采用一对对的值的形式来设置每一个点从而组成一个形状。不同之处在于，折线 <polyline> 不是闭合的而多边形 <polygon> 是自动闭合的。
 <svg width="750" height="500">
   <ellipse cx="43" cy="43" rx="40" ry="40"></ellipse>
@@ -101,6 +101,22 @@ Z 表示闭合路径。通过在当前点和路径的起始点之间画一条直
     <line x1="3" y1="19" x2="65" y2="19"></line>
     <line x1="3" y1="35" x2="48" y2="35"></line>
     <line x1="3" y1="51" x2="65" y2="51"></line>
+</g>
+
+<g id="rightcaret">
+    <!-- 插入图标 -->
+    <polyline points="
+    3 3
+    30 28
+    3 53
+    "></polyline>
+</g>
+
+<g id="browser">
+    <!-- 浏览器图标 -->
+    <rect x="3" y="3" width="80" height="60"></rect>
+    <line x1="3" y1="19" x2="83" y2="19"></line>
+    <line x1="20" y1="3" x2="20" y2="17"></line>
 </g>
 
 9. 使用 <use> 来放置组合

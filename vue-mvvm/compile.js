@@ -72,6 +72,7 @@ class Compile {
                 // 是元素节点
                 // 元素可能还有儿子 进行递归编译
                 this.compileElement(node);
+                this.compile(node);
             } else {
                 // 是文本节点
                 this.compileText(node)
@@ -111,7 +112,7 @@ CompileUtils = {
         let value = this.getTextVal(vm, expr);
         // 如果文本是{{a}} {{b}} 需要给a和b都加一个watcher
         expr.replace(/\{\{([^}]+)\}\}/g, (...arguments) => {
-            new Watcher(vm, arguments[1], (newValue) => {
+            new Watcher(vm, arguments[1], () => {
                 // 如果数据变化了 文本节点需要重新获取依赖的属性更新文本中的内容
                 updateFn && updateFn(node, this.getTextVal(vm, expr));
             })

@@ -30,7 +30,6 @@ class Watcher {
         }
     }
 }
-
 // 观察者的目的是用新值和老值进行比对,如果发生变化,就调用更新方法
 
 /* <input type="text" v-model="message"> 首先给input添加一个观察者

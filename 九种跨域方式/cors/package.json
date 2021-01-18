@@ -1,15 +1,14 @@
 {
-  "name": "jsonp",
+  "name": "cors",
   "version": "1.0.0",
-  "main": "express.js",
+  "description": "",
+  "main": "server1.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
-  "description": "",
   "devDependencies": {
     "express": "^4.17.1"
   }

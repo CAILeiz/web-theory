@@ -28,7 +28,21 @@ ajax也不支持跨域
 // url有长度限制
 
 2. cors[纯后端提供的后端支持前端即可访问] 最常用******************
-
+需要在后端设置各种Access-Control-Allow
+```javascript
+// 允许哪些ip支持跨域 如果跨域设置 * 就不能设置cookie了
+res.setHeader("Access-Control-Allow-Origin", origin); 
+// 允许前端可以设置哪些属性名称的请求头使用","分隔
+res.setHeader("Access-Control-Allow-Headers", "name, age, sex")
+// 设置可以请求PUT
+res.setHeader("Access-Control-Allow-Methods", "PUT")
+// 前端请求的时候必须使携带cookie 需要设
+res.setHeader("Access-Control-Allow-Credentials", true);
+// 后端设置头返回前端 前端想拿到需要设置
+res.setHeader("Access-Control-Expose-Headers", "name");
+// 设置预检测时间 间隔多少秒再次发起
+res.setHeader("Access-Control-Max-Age", 6000);
+```
 
 3. postMessage 两个页面实现通讯
 4. document.domain 二级域名和一级域名在同一个域名下通讯

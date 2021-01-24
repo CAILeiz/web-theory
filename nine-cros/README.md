@@ -27,7 +27,7 @@ ajax也不支持跨域
 // 不安全 xss攻击 别人返回一个脚本给你 你就完了 之后就不采用
 // url有长度限制
 
-2. cors[纯后端提供的后端支持前端即可访问] 最常用******************
+2. cors[纯后端提供的后端支持前端即可访问] 最常用****************** 在前端设置cookie没有设置
 需要在后端设置各种Access-Control-Allow
 ```javascript
 // 允许哪些ip支持跨域 如果跨域设置 * 就不能设置cookie了
@@ -45,6 +45,7 @@ res.setHeader("Access-Control-Max-Age", 6000);
 ```
 
 3. postMessage 两个页面实现通讯
+
 4. document.domain 二级域名和一级域名在同一个域名下通讯
 1. window.name
 1. location.hash

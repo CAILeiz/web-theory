@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>域名 一级域名 二级域名</h1>
+    <h1>www.baidu.com</h1>
+    <h1>video.baidu.com</h1>
+    <iframe
+      src="http://b.zl.cn:3000/b.html"
+      frameborder="0"
+      onload="load()"
+      id="iframe"
+    ></iframe>
+    <script>
+        document.domain = "zl.cn";
+        function load() {
+            let frame = document.getElementById("iframe");
+            console.log(frame.contentWindow.b);
+        }
+    </script>
+  </body>
+</html>

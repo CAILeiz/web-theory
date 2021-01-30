@@ -1,0 +1,210 @@
+/* 弹性盒子 */
+.fb {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: -webkit-flex;
+  display: flex;
+}
+/* 容器属性 */
+/* 1、flex-direction 主轴方向 */
+.fb-row {
+  -webkit-box-direction: normal; /*老语法*/
+  -webkit-box-orient: horizontal; /*老语法*/
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+.fb-row-rev {
+  /* box-direction只是改变了子元素的排序，并没有改变对齐方式，需要新增一个 box-pack 来改变对齐方式*/
+  -webkit-box-pack: end; /*老语法*/
+  box-pack: end; /*老语法*/
+  -webkit-box-direction: reverse; /*老语法*/
+  box-direction: reverse; /*老语法*/
+  -webkit-box-orient: horizontal; /*老语法*/
+  box-orient: horizontal; /*老语法*/
+  -webkit-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+.fb-col {
+  -webkit-box-direction: normal; /*老语法*/
+  box-direction: normal; /*老语法*/
+  -webkit-box-orient: vertical; /*老语法*/
+  box-orient: vertical; /*老语法*/
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.fb-col-rev {
+  /* box-direction只是改变了子元素的排序，并没有改变对齐方式，需要新增一个 box-pack 来改变对齐方式*/
+  -webkit-box-pack: end; /*老语法*/
+  -webkit-box-direction: reverse; /*老语法*/
+  -webkit-box-orient: vertical; /*老语法*/
+  -webkit-flex-direction: column-reverse;
+  flex-direction: column-reverse;
+}
+
+/* 2、flex-wrap 设置溢出换行 */
+.fb-nowrap {
+  -webkit-flex-wrap: none;
+  flex-wrap: none; /* 溢出不换行 强制一行，元素同比缩小 */
+}
+.fb-wrap {
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap; /* 溢出换行 */
+}
+.fb-wrap-rev {
+  -webkit-flex-wrap: wrap-reverse;
+  flex-wrap: wrap-reverse;
+}
+
+/* 3、flex-flow 是flex-direction flex-wrap的缩写 */
+
+/* 4、justify-content属性定义了项目在主轴上的对齐方式 */
+.fb-main-start {
+  -webkit-box-pack: start; /*老语法*/
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+.fb-main-center {
+  -webkit-box-pack: center; /*老语法*/
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.fb-main-end {
+  -webkit-box-pack: end; /*老语法*/
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+/* 两端对齐，项目之间的间隔都相等 */
+.fb-main-between {
+  -webkit-box-pack: justify; /*老语法*/
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+/* 每个项目两侧的间隔相等。项目之间的间隔比项目与边框的间隔大一倍。 */
+.fb-main-around {
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+}
+
+/* 5、align-items属性定义项目在交叉轴上如何对齐 */
+.fb-cross-start {
+  -webkit-box-align: start; /*老语法*/
+  box-align: start; /*老语法*/
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+.fb-cross-center {
+  -webkit-box-align: center; /*老语法*/
+  box-align: center; /*老语法*/
+  -webkit-align-items: center;
+  align-items: center;
+}
+.fb-cross-end {
+  -webkit-box-align: end; /*老语法*/
+  box-align: end; /*老语法*/
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+}
+/* 项目的第一行文字的基线对齐 */
+.fb-cross-baseline {
+  -webkit-box-align: baseline; /*老语法*/
+  box-align: baseline; /*老语法*/
+  -webkit-align-items: baseline;
+  align-items: baseline;
+}
+/* 如果项目未设置高度或设为auto，将占满整个容器的高度 */
+.fb-cross-stretch {
+  -webkit-box-align: stretch; /*老语法*/
+  box-align: stretch; /*老语法*/
+  -webkit-align-items: stretch;
+  align-items: stretch;
+}
+
+/* 项目属性 */
+
+/* 1、order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0 */
+.fb .item-order-1 {
+  -webkit-box-ordinal-group: 1;
+  -webkit-order: 1;
+  order: 1;
+}
+.fb .item-order-2 {
+  -webkit-box-ordinal-group: 2;
+  -webkit-order: 2;
+  order: 2;
+}
+.fb .item-order-3 {
+  -webkit-box-ordinal-group: 3;
+  -webkit-order: 3;
+  order: 3;
+}
+
+/*2、flex-grow属性定义项目的放大比例
+      放大：默认0（即如果有剩余空间也不放大，值为1则放大，2是1的双倍大小，以此类推）
+*/
+.fb .item-grow-1 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+}
+.fb .item-grow-2 {
+  -webkit-box-flex: 2;
+  -webkit-flex-grow: 2;
+  flex-grow: 2;
+}
+/* ... */
+
+/* 3、flex-shrink属性定义了项目的缩小比例 
+    缩小：默认1（如果空间不足则会缩小，值为0不缩小)
+*/
+.fb .item-shrink-0 {
+  -webkit-box-flex: 0;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+}
+
+/* 4、flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小 */
+.fb .item-basis-120 {
+  flex-basis: 120px;
+}
+
+/* 5、(建议优先使用这个属性)flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto */
+.fb .item-flex-1 {
+  /* display: block; */
+  -webkit-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+.fb .item-flex-2 {
+  display: block;
+  -webkit-flex: 2;
+  flex: 2;
+}
+/* {...} */
+
+/* 6、align-self 属性允许单个项目有与其他项目不一样的对齐方式。
+      可覆盖align-items属性。
+      默认值为auto，表示继承父元素的align-items属性，
+      如果没有父元素，则等同于stretch
+*/
+.fb .item-self-start {
+  -webkit-align-self: flex-start;
+  align-self: flex-start;
+}
+.fb .item-self-center {
+  -webkit-align-self: center;
+  align-self: center;
+}
+.fb .item-self-end {
+  -webkit-align-self: flex-end;
+  align-self: flex-end;
+}
+.fb .item-self-baseline {
+  -webkit-align-self: baseline;
+  align-self: baseline;
+}
+.fb .item-self-stretch {
+  -webkit-align-self: stretch;
+  align-self: stretch;
+}

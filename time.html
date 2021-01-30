@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的时间助手</title>
+    <style>
+      h1 {
+        height: 120px;
+        width: 400px;
+        font-size: 30px;
+        font-weight: bolder;
+        margin: 100px auto;
+        box-shadow: 0 0 4px #999;
+        text-align: center;
+        line-height: 120px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>2021-01-28 14:43:20</h1>
+    <h1>
+      剩余时间: <span>0</span> 
+    </h1>
+
+    <script>
+      let h1 = document.getElementsByTagName("h1")[0];
+      let span = document.getElementsByTagName("span")[0];
+      let expectDate = new Date("2020/01/28 15:15:00");
+      let expectTime = expectDate.getTime();
+      setInterval(() => {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = "00" + date.getMonth() + 1;
+        let day = "00" + date.getDate();
+        let hour = "00" + date.getHours();
+        let minute = "00" + date.getMinutes();
+        let second = "00" + date.getSeconds();
+        let nowTime = date.getTime();
+        month = month.slice(-2);
+        day = day.slice(-2);
+        hour = hour.slice(-2);
+        minute = minute.slice(-2);
+        second = second.slice(-2);
+        let time = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+        h1.innerText = time;
+        // span.innerText = expectTime - nowTime;
+      }, 1000);
+    </script>
+  </body>
+</html>

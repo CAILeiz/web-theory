@@ -1,0 +1,15 @@
+.font-15 {
+  font-size: 15px;
+}
+[data-dpr='2'] .font-15 {
+  font-size: 30px;
+}
+[data-dpr='3'] .font-15 {
+  font-size: 45px;
+}
+.font-semibold {
+  font-family: MicrosoftYaHeiSemibold;
+}
+.font-yahei {
+  font-family: MicrosoftYaHei;
+}

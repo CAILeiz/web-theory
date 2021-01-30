@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>原理是 window.name 不会消失</h1>
+    <h1>a和b是同域的 http://localhost:3000</h1>
+    <h1>c是独立的 http://localhost:4000</h1>   
+    <h1>a要获取c的数据</h1>
+    <h1>a先引用c c先把值放到window.name上 立马把a引用的地址改到b</h1>
+    <iframe src="http://localhost:4000/c.html" frameborder="0" id="iframe" onload="load()"></iframe>
+    <script>
+        let first = true;
+        function load() {
+            if(first) {
+                let iframe = document.getElementById("iframe");
+                iframe.src = "http://localhost:3000/b.html";
+                first = false;
+            } else {
+                console.log(iframe.contentWindow.name);
+            }
+        }
+    </script>
+</body>
+</html>

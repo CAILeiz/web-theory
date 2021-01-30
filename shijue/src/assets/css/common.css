@@ -1,0 +1,150 @@
+/* 容器 */
+.bb {
+  border: 1px solid black;
+}
+.bd {
+  border: 1px solid black;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f6f6f6;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cdcdcd;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #747474;
+}
+::-webkit-scrollbar-corner {
+  background: #f6f6f6;
+}
+.scroll {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+.container-min {
+  min-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+.container-max {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+.container-max-1380 {
+  max-width: 1380px;
+  width: 100%;
+}
+.top-fixed-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+.margin-auto {
+  margin: auto;
+}
+/* border颜色 */
+.orange {
+  box-sizing: border-box;
+  border: 1px solid orange;
+}
+.green {
+  box-sizing: border-box;
+  border: 1px solid green;
+}
+.box-sizing {
+  box-sizing: border-box;
+}
+/* 省略文案 */
+.ellipsis-l1 {
+  max-height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  /*! autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
+.ellipsis-l2 {
+  max-height: 40px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /*! autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
+.ellipsis-l3 {
+  max-height: 60px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  /*! autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
+/* 宽度统一 */
+.w-300 {
+  width: 300px;
+}
+.width-full {
+  width: 100%;
+}
+/* 高度统一区 */
+.height-all {
+  height: 100%;
+}
+.height-full {
+  height: 100%;
+}
+.h-550 {
+  height: 550px;
+}
+.h-700 {
+  height: 700px;
+}
+.h-1085 {
+  height: 1085px;
+}
+/* 外边距 */
+.mt-16 {
+  margin-top: 16px;
+}
+/* 内边距 */
+/* 透明度 */
+/* 边框区 */
+/* 颜色区 */
+.bg-ffffff {
+  background: #ffffff;
+}
+/* 文字对齐样式区 */
+.center {
+  text-align: center;
+}
+/* 按钮样式区 */
+.bbox {
+  box-sizing: border-box;
+}
+.pre-line {
+  white-space: pre-line;
+}
+.is-required {
+  position: relative;
+}
+.is-required:before {
+  color: #e0423c;
+  content: '*';
+  position: absolute;
+  left: -8px;
+}

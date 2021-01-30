@@ -1,26 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <title>1</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
     <style>
-      p {
-        width: 100px;
-        height: 100px;
-        background: black;
-        float: left;
-      }
-      div {
+      #container {
         width: 100%;
-        border: 1px solid red;
-        /* 清除浮动 div可包含浮动的元素*/
-        overflow: hidden;
+        height: 1000px;
       }
     </style>
+    <!-- 下面是输入提示插件的css 使用的是AMap.Autocomplete-->
+    <link
+      rel="stylesheet"
+      href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"
+    />
   </head>
   <body>
-    <div>
-      <p></p>
+    <div id="container"></div>
+    <div class="info">
+      <div class="input-item">
+        <div class="input-item-prepend">
+          <span class="input-item-text" style="width: 8rem">请输入关键字</span>
+        </div>
+        <input id="tipinput" type="text" />
+      </div>
     </div>
-    <h1>1111</h1>
+    <script
+      type="text/javascript"
+      src="https://webapi.amap.com/maps?v=1.4.15&key=fb681046d71714673fd6008f784c32a2"
+    ></script>
+    <script>
+      let options = {
+        zoom: 10, //设置地图显示的缩放级别
+        center: [116.397428, 39.90923], //设置地图中心点坐标
+        layers: [new AMap.TileLayer.Satellite()], //设置图层,可设置成包含一个或多个图层的数组
+        mapStyle: "amap://styles/whitesmoke", //设置地图的显示样式
+        viewMode: "3D", //设置地图模式
+        lang: "zh_cn", //设置地图语言类型
+      };
+      var map = new AMap.Map("container", obj);
+      map.on("complete", function () {
+        // alert("地图加载完成");
+      });
+      var position = [116, 39]; // 标准写法
+      // 设置地图中心点
+      map.setCenter(position);
+      // 设置地图缩放点
+      map.setZoom(4);
+      // alert(map.getCenter());
+      // alert(map.getZoom());
+
+      // 创建一条折现覆盖物
+      var path = [
+        new AMap.LngLat("116.368904", "39.913423"),
+        new AMap.LngLat("116.382122", "39.901176"),
+        new AMap.LngLat("116.387271", "39.912501"),
+        new AMap.LngLat("116.398258", "39.904600"),
+      ];
+      // 相当于
+      // var path = [
+      //   ["116.368904", "39.913423"],
+      //   ["116.382122", "39.901176"],
+      //   ["116.387271", "39.912501"],
+      //   ["116.398258", "39.904600"],
+      // ];
+      var polyline = new AMap.Polyline({
+        path: path,
+        borderWeight: 2, // 线条宽度，默认为 1
+        strokeColor: "red", // 线条颜色
+        lineJoin: "round", // 折线拐点连接处样式
+      });
+      map.add(polyline);
+
+      // 创建两个标记点
+      var marker1 = new AMap.Marker({
+        position: new AMap.LngLat(117.39, 39.9), // 经纬度对象，如 new AMap.LngLat(116.39, 39.9); 也可以是经纬度构成的一维数组[116.39, 39.9]
+        title: "北京",
+      });
+      var marker2 = new AMap.Marker({
+        position: new AMap.LngLat(118.39, 39.9), // 经纬度对象，如 new AMap.LngLat(116.39, 39.9); 也可以是经纬度构成的一维数组[116.39, 39.9]
+        title: "北京",
+      });
+      map.add(marker1);
+      map.add(marker2);
+      // 自动是适配合适视野范围
+      map.setFitView();
+      // 传入覆盖物数组，仅包括polyline和marker1的情况
+      // 构造点标记
+      var marker = new AMap.Marker({
+        icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+        position: [116.405467, 39.907761],
+      });
+      // 构造矢量圆形
+      var circle = new AMap.Circle({
+        center: new AMap.LngLat("116.403322", "39.920255"), // 圆心位置
+        radius: 1000, //半径
+        strokeColor: "#F33", //线颜色
+        strokeOpacity: 1, //线透明度
+        strokeWeight: 3, //线粗细度
+        fillColor: "#ee2200", //填充颜色
+        fillOpacity: 0.35, //填充透明度
+      });
+      // 将以上覆盖物添加到地图上
+      // 单独将点标记添加到地图上
+      // add方法可以传入一个覆盖物数组，将点标记和矢量圆同时添加到地图上
+      map.add([marker, circle]);
+      // map.setFitView([polyline, marker1]);
+      // 获取已经添加的覆盖物
+      // console.log(map.getAllOverlays());
+      // 获取已经添加的marker
+      // console.log(map.getAllOverlays("marker"));
+
+      // 移除覆盖物
+      // map.remove([marker]);
+      // 全部移除
+      // map.clearMap();
+
+      // 添加图层
+      // 构造官方卫星、路网图层
+      var layer1 = new AMap.TileLayer.Satellite();
+      var layer2 = new AMap.TileLayer.RoadNet();
+      var layers = [layer1, layer2];
+      // 添加到地图上
+      // map.add(layers);
+
+      // 给map绑定事件
+      map.on("click", function (ev) {
+        // 触发事件的对象
+        var target = ev.target;
+        // 触发事件的地理坐标，AMap.LngLat 类型
+        var lnglat = ev.lnglat;
+        // 触发事件的像素坐标，AMap.Pixel 类型
+        var pixel = ev.pixel;
+        // 触发事件类型
+        var type = ev.type;
+        console.log(ev);
+      });
+
+      // 自定义地图样式
+      // map.setMapStyle("amap://styles/58ead4dce4aa991d15c7dd0096c10a06");
+      var obj = {
+        pitch: 75, // 地图俯仰角度，有效范围 0 度- 83 度
+        viewMode: "3D", // 地图模式
+      };
+
+      // 通过icon自定义标记marker点 -- 设置北京的icon
+      // var marker = new AMap.Marker({
+      //   position: new AMap.LngLat(116.39, 39.9),
+      //   offset: new AMap.Pixel(-10, -10),
+      //   icon: "//vdata.amap.com/icons/b18/1/2.png", // 添加 Icon 图标 URL
+      //   title: "北京",
+      //   zoom: 13,
+      // });
+
+      // 自定义标记内容
+      var content = '<div class="marker-route marker-marker-bus-from"></div>';
+      var markerContent = `<div class="custom-content-marker">
+           <img src="//a.amap.com/jsapi_demos/static/demo-center/icons/dir-via-marker.png">
+           <div class="close-btn" onclick="clearMarker()">X</div>
+        </div>`;
+      var marker = new AMap.Marker({
+        content: markerContent, // 自定义点标记覆盖物内容
+        position: [116.397428, 39.90923], // 基点位置
+        offset: new AMap.Pixel(-17, -42), // 相对于基点的偏移位置
+      });
+      // 文本标记 Text
+      marker.setLabel({
+        offset: new AMap.Pixel(20, 20), //设置文本标注偏移量
+        content: "<div class='info'>我是 marker 的 label 标签</div>", //设置文本标注内容
+        direction: "right", //设置文本标注方位
+      });
+      map.add(marker);
+
+      // 使用经纬度获取驾车规划数据
+      // 构造路线导航类
+      // AMap.plugin("AMap.Driving", function () {
+      //   var driving = new AMap.Driving({
+      //     map: map,
+      //     // 驾车路线规划策略，AMap.DrivingPolicy.LEAST_TIME是最快捷模式
+      //     // policy: AMap.DrivingPolicy.LEAST_TIME,
+      //     // policy: AMap.DrivingPolicy.LEAST_FEE,
+      //     // policy: AMap.DrivingPolicy.LEAST_DISTANCE,
+      //     policy: AMap.DrivingPolicy.REAL_TRAFFIC,
+      //   });
+      //   var startLngLat = [116.379028, 39.865042];
+      //   var endLngLat = [116.427281, 39.903719];
+      //   driving.search(
+      //     startLngLat,
+      //     endLngLat,
+      //     {
+      //       // 途经点参数，最多支持传入16个途经点
+      //       waypoints: [{ keyword: "北京站", city: "北京" }],
+      //     },
+      //     function (status, result) {
+      //       // 未出错时，result即是对应的路线规划方案
+      //     }
+      //   );
+      // });
+
+      // 备注 驾车策略 DrivingPolicy值有四种 类型都是const
+      // 1. AMap.DrivingPolicy.LEAST_TIME 最快捷模式
+      // 2. AMap.DrivingPolicy.LEAST_FEE 最经济模式
+      // 3. AMap.DrivingPolicy.LEAST_DISTANCE 最短距离模式
+      // 4. AMap.DrivingPolicy.REAL_TRAFFIC 考虑实时路况
+
+      //  途经
+      var opts = {
+        // 途经点参数，最多支持传入16个途经点
+        waypoints: [{ keyword: "北京站", city: "北京" }],
+      };
+      AMap.plugin("AMap.Driving", function () {
+        var driving = new AMap.Driving({
+          // 驾车路线规划策略，AMap.DrivingPolicy.LEAST_TIME是最快捷模式
+          map: map,
+          policy: AMap.DrivingPolicy.LEAST_TIME,
+        });
+        var points = [
+          { keyword: "北京市地震局（公交站）", city: "北京" },
+          { keyword: "亦庄文化园（地铁站）", city: "北京" },
+        ];
+        var opts = {
+          // 途经点参数，最多支持传入16个途经点
+          waypoints: [{ keyword: "北京站", city: "北京" }],
+        };
+        driving.search(points, opts, function (status, result) {
+          // 未出错时，result即是对应的路线规划方案
+        });
+      });
+
+      // 使用默认UI显示驾车路线规划
+      // AMap.plugin("AMap.Driving", function () {
+      //   var driving = new AMap.Driving({
+      //     // 驾车路线规划策略，AMap.DrivingPolicy.LEAST_TIME是最快捷模式
+      //     policy: AMap.DrivingPolicy.LEAST_TIME,
+      //     // map 指定将路线规划方案绘制到对应的AMap.Map对象上
+      //     map: map,
+      //     // panel 指定将结构化的路线详情数据显示的对应的DOM上，传入值需是DOM的ID
+      //     panel: "container",
+      //   });
+      //   var points = [
+      //     { keyword: "北京市地震局（公交站）", city: "北京" },
+      //     { keyword: "亦庄文化园（地铁站）", city: "北京" },
+      //   ];
+      //   // 搜索完成后，将自动绘制路线到地图上
+      //   driving.search(points);
+      // });
+
+      // 输入提示插件
+      AMap.plugin("AMap.Autocomplete", function () {
+        // 实例化Autocomplete
+        var autoOptions = {
+          //city 限定城市，默认全国
+          city: "全国",
+          input: "tipinput",
+        };
+        var autoComplete = new AMap.Autocomplete(autoOptions);
+        autoComplete.search(keyword, function (status, result) {
+          // 搜索成功时，result即是对应的匹配数据
+        });
+      });
+    </script>
   </body>
 </html>

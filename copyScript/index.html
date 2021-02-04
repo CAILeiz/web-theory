@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <input id="foo" type="text" value="input" />
+    <button class="btn" data-clipboard-target="#foo">Copy</button>
+
+    <textarea id="bar" value="textarea"></textarea>
+    <button
+      class="btn"
+      data-clipboard-action="cut"
+      data-clipboard-target="#bar"
+    >
+      Cut
+    </button> -->
+    <textarea rows="3" cols="20" id="textarea">
+        在w3school，你可以找到你所需要的所有的网站建设教程。
+        </textarea
+    >
+    <button
+      class="btn"
+      data-clipboard-action="copy"
+      data-clipboard-target="textarea"
+    >
+      Copy
+    </button>
+    <button id="deBonce">点我防抖!</button>
+    <script src="./clipboard.js"></script>
+    <script>
+        let deBonce = document.getElementById("deBonce");
+        console.log(deBonce);
+        console.log(debounce);
+        console.log(sayDebounce);
+        deBonce.addEventListener("click", debounce(sayDebounce))
+    </script>
+    <script src="./node_modules/clipboard/dist/clipboard.min.js"></script>
+    <script>
+      //   // button的class的值
+      //   var clipboard = new ClipboardJS(".btn");
+      //   clipboard.on("success", function (e) {
+      //     console.log(e);
+      //     console.log(e.text);
+      //   });
+
+      //   clipboard.on("error", function (e) {
+      //     console.log(e);
+      //   });
+      //   class ClipboardJS {
+      //       constructor(dom) {
+      //         if(isElement(dom)) {
+      //             this.dom = dom
+      //         } else {
+      //             dom = document.querySelector(dom);
+      //             if(!isElement(dom)) {
+      //                 console.log(new Error(`传入的${dom}`))
+      //             }
+      //         }
+      //       }
+
+      //   }
+      // function isElement(ele) {
+      //     return ele.nodeType === 1;
+      // }
+    </script>
+  </body>
+</html>

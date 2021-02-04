@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+    节流：指定时间间隔内只会执行一次任务。
+    举例：
+        1. 你不想频繁为你女票买单，于是约好每月 1 号清空购物车
+        2. 防止过快拖动滚动条，导致 JS 跟不上拖动频率，通过节流限制每秒触发监听的次数（固定时间固定频率） ***************************************
+    简单来说：年轻人要保持一日三餐，规律作息，那就通过节流来限制。
+    1. 设置一个标记
+    2. 设置一个闭包，返回一个方法
+    3. 如果重复进去的时候，标记已经动了，那就组织程序进一步运行
+    4. 如果定时器执行完了，设置这个标记为没动，允许下一次执行
+     -->
+    <button id="throttle">点我节流！</button>
+    <script>
+      var throttleDom = document.getElementById("throttle");
+      throttleDom.addEventListener("click", throttle(sayThrottle))
+      function throttle(fn) {
+        let timer = true;
+        return function () {
+          if (!timer) {
+            return;
+          }
+          timer = false;
+          setTimeout(() => {
+            fn.call(this, arguments);
+            timer = true;
+          }, 1000);
+        };
+      }
+      function sayThrottle() {
+        console.log("节流成功!");
+      }
+    </script>
+  </body>
+</html>

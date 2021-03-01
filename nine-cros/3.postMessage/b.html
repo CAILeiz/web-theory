@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            /* background-color: orangered; */
+        }
+    </style>
 </head>
 <body>
     我是b页面
@@ -12,6 +17,7 @@
         // 给b页面注册onmessage事件接收a页面的消息
         window.onmessage = function(e) {
             console.log(e.data);
+            console.log(e);
             e.source.postMessage("我是b页面", e.origin)
         }
     </script>

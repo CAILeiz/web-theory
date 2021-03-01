@@ -8,12 +8,12 @@
 <body>
     <h1>WebSocket是高级API有兼容性问题 一般使用socket.io</h1>
     <script>
-        let socket = new WebSocket("ws://localhost:3000");
-        socket.onopen = function() {
-            socket.send("我爱你");
+        const socket = new WebSocket("ws://localhost:3000");
+        socket.onopen = () => {
+            socket.send("i nice")
         }
         socket.onmessage = function(e) {
-            console.log(e.data);
+            console.log("我是从服务端获取到的e.data", e.data);
         }
     </script>
 </body>

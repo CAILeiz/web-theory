@@ -20,6 +20,7 @@
                 iframe.src = "http://localhost:3000/b.html";
                 first = false;
             } else {
+                console.log(iframe.contentWindow);
                 console.log(iframe.contentWindow.name);
             }
         }

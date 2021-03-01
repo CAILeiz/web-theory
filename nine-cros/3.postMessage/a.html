@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            background-color: skyblue;
+        }
+    </style>
 </head>
 <body>
     我是a页面
-    <iframe src="http://localhost:4000/b.html" frameborder="0" id="frame" onload="load()"></iframe>
+    <iframe src="http://localhost:4000/b.html" frameborder="1" id="frame" onload="load()"></iframe>
     <script>
         function load() {
             let frame = document.getElementById("frame");
@@ -16,7 +21,7 @@
         }
         window.onmessage = function(e) {
             // 接收b页面的信息
-            console.log(e.data);
+            console.log("b页面的传值", e.data);
         }
     </script>
 </body>

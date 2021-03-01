@@ -7,7 +7,8 @@
 </head>
 <body>
     <script>
-        console.log(window.location.hash);
+        console.log("我是c页面的location.hash",window.location.hash);
+        // 判断当前的hash值是不是在a页面的hash
         if(window.location.hash === "iloveyou");
         let iframe = document.createElement("iframe");
         iframe.src = "http://localhost:3000/b.html#idontloveyou";
